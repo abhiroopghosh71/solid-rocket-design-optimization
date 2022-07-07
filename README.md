@@ -15,7 +15,7 @@ The code should run properly on Windows but it has not been extensively tested. 
 
     ```https://github.com/abhiroopghosh71/solid-rocket-design-optimization.git```
     
-2. Change into the pymoo_optimization directory ```cd solid-rocket-design-optimization```
+2. Change into the working directory ```cd solid-rocket-design-optimization```
 
 3. To install the dependencies use ```pip install requirements.txt```. If you are using Anaconda, it is recommended to create a new virtual environment using ```conda create --name <envname> --file requirements.txt```
 
@@ -23,10 +23,10 @@ The code should run properly on Windows but it has not been extensively tested. 
 
 5. Run ```make```
 
-6. Run ```python -m unittest tests/unit/test_rocket_evaluator.py tests/unit/test_pymoo_optimization.py```
+6. Run ```python -m unittest tests/test_rocket_evaluator.py tests/test_pymoo_optimization.py```
 
 <h2>A sample case for the standalone rocket burn simulator</h4>
-From the ```pymoo_optimization``` directory, run ```python rocket_eval_demo.py```. The file has a predefined input in the ```__main__``` block.
+From the ```solid-rocket-design-optimization``` directory, run ```python rocket_eval_demo.py```. The file has a predefined input in the ```__main__``` block.
 
 Expected output:
 
@@ -70,9 +70,9 @@ Time of circularization for each segment
 <h2>Running the optimization</h4>
 The code uses NSGA-II [1] optimization algorithm to find the solid fuel configuration to match a given thrust profile.
 
-1. Change into the pymoo_optimization directory.
+1. Change into the solid-rocket-design-optimization directory.
 
-    ```cd DARPA-TRADES-CP3/pymoo_optimization```
+    ```cd solid-rocket-design-optimization```
 
 2. Run ```make clean```
 
