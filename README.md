@@ -1,5 +1,6 @@
 # Solid rocket motor design using multi-objective optimization
-Multi-objective optimization of a solid rocket motor to fit a pre-specified thrust profile and minimize insulation.
+Multi-objective optimization of a solid rocket motor [1] to fit a pre-specified thrust profile and minimize insulation. 
+This package uses Pymoo [3] for running NSGA-II [2].
 
 <h2>Note to macOS and Windows users</h4>
 The code currently may not work properly on MAC-OS. One known issue is when you run ```make``` it might say:
@@ -333,3 +334,4 @@ Please report issues to me, ghoshab1@msu.edu
 
 2. K. Deb, A. Pratap, S. Agarwal and T. Meyarivan, "A fast and elitist multiobjective genetic algorithm: NSGA-II," in _IEEE Transactions on Evolutionary Computation_, vol. 6, no. 2, pp. 182-197, April 2002. https://doi.org/10.1109/4235.996017
 
+3. J. Blank and K. Deb, pymoo: Multi-Objective Optimization in Python, in IEEE Access, vol. 8, pp. 89497-89509, 2020, https://doi.org/10.1109/ACCESS.2020.2990567
