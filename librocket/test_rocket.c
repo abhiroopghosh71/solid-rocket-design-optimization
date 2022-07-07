@@ -254,8 +254,8 @@ int main(int argc, char *argv[])
         }
         printf("\n");
 
-       printf("\nErik's current (changeable) tThrustReward %f", tThrustReward);
-       printf("\nErik's current (changeable) tSimultaneityReward %f", tSimultaneityReward);
+       printf("\nThrustReward %f", tThrustReward);
+       printf("\nSimultaneityReward %f", tSimultaneityReward);
 
        printf("\nThroat Area %f", tThroatAreaInput);
        printf("\ntDeltaV %f", tDeltaV);
