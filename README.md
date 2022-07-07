@@ -283,7 +283,7 @@ In file approcket.c (near the top):
                                seconds, as required in order to continue meeting 25g thrust targets for
                                phase 1.
 
-- ```double DeltaTime = 0.5```   (seconds, user may change to a number that is a multiple of 0.5 seconds, 
+- ```double DeltaTimeCoarse = 0.5```   (seconds, user may change to a number that is a multiple of 0.5 seconds, 
                              so 1, 1.5, 2, etc., are all fine, but 0.2, 0.3, for example, are not)
 
 <h2>Calling the simulator</h2>
