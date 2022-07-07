@@ -330,5 +330,6 @@ Please report issues to me, ghoshab1@msu.edu
 
 <h2>References:</h4>
 1. A. Ghosh, E. Goodman, K. Deb, R. Averill, A. Diaz, "A Large-scale Bi-objective Optimization of Solid Rocket Motors Using Innovization," _2020 IEEE Congress on Evolutionary Computation (CEC)_, 1–8. https://doi.org/10.1109/CEC48606.2020.9185861
+
 2. K. Deb, A. Pratap, S. Agarwal and T. Meyarivan, "A fast and elitist multiobjective genetic algorithm: NSGA-II," in _IEEE Transactions on Evolutionary Computation_, vol. 6, no. 2, pp. 182-197, April 2002. https://doi.org/10.1109/4235.996017
 
