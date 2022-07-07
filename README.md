@@ -13,9 +13,9 @@ The code should run properly on Windows but it has not been extensively tested. 
 <h2>Running unit tests to ensure everything is in order:</h4>
 1. Clone the repo:
 
-    ```git clone https://github.com/abhiroopghosh71/DARPA-TRADES-CP3.git```
+    ```https://github.com/abhiroopghosh71/solid-rocket-design-optimization.git```
     
-2. Change into the pymoo_optimization directory ```cd DARPA-TRADES-CP3/pymoo_optimization```
+2. Change into the pymoo_optimization directory ```cd solid-rocket-design-optimization```
 
 3. To install the dependencies use ```pip install requirements.txt```. If you are using Anaconda, it is recommended to create a new virtual environment using ```conda create --name <envname> --file requirements.txt```
 
