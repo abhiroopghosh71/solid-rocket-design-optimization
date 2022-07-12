@@ -1,6 +1,6 @@
 # Solid rocket motor design using multi-objective optimization
 Multi-objective optimization of a solid rocket motor [1] to fit a pre-specified thrust profile and minimize insulation. 
-This package uses Pymoo [3] for running NSGA-II [2].
+This package uses Pymoo [2] for running NSGA-II [3].
 
 <h2>Note to macOS and Windows users</h4>
 The code currently may not work properly on MAC-OS. One known issue is when you run ```make``` it might say:
@@ -69,7 +69,7 @@ Time of circularization for each segment
 ```
 
 <h2>Running the optimization</h4>
-The code uses NSGA-II [1] optimization algorithm to find the solid fuel configuration to match a given thrust profile.
+The code uses NSGA-II [3] optimization algorithm to find the solid fuel configuration to match a given thrust profile.
 
 1. Change into the solid-rocket-design-optimization directory.
 
@@ -101,11 +101,12 @@ Expected output:
 
 1. ```--seed```: Sets the seed for the random number generator.
 
-2. ```--target-thrust```: Thrust profile to be matched by the optimizer.
+2. ```--target-thrust```: Thrust profile to be matched by the optimizer. Default is 'baseline'. Other thrust profiles 
+may be used by giving the corresponding file name under ```problems/rocket_propellant_design/thrust_profiles/```.
 
-3. ```--ngen```: Number of generations of NSGA-II.
+4. ```--ngen```: Number of generations of NSGA-II.
 
-4. ```--popsize```: Population size of NSGA-II.
+5. ```--popsize```: Population size of NSGA-II.
 
 For example,
 ```python optimize.py --ngen 100 --popsize 200 --target-thrust baseline --seed 1234```
@@ -332,6 +333,6 @@ Please report issues to me, ghoshab1@msu.edu
 <h2>References:</h4>
 1. A. Ghosh, E. Goodman, K. Deb, R. Averill, A. Diaz, "A Large-scale Bi-objective Optimization of Solid Rocket Motors Using Innovization," _2020 IEEE Congress on Evolutionary Computation (CEC)_, 1–8. https://doi.org/10.1109/CEC48606.2020.9185861
 
-2. K. Deb, A. Pratap, S. Agarwal and T. Meyarivan, "A fast and elitist multiobjective genetic algorithm: NSGA-II," in _IEEE Transactions on Evolutionary Computation_, vol. 6, no. 2, pp. 182-197, April 2002. https://doi.org/10.1109/4235.996017
+2. J. Blank and K. Deb, pymoo: Multi-Objective Optimization in Python, in IEEE Access, vol. 8, pp. 89497-89509, 2020, https://doi.org/10.1109/ACCESS.2020.2990567
 
-3. J. Blank and K. Deb, pymoo: Multi-Objective Optimization in Python, in IEEE Access, vol. 8, pp. 89497-89509, 2020, https://doi.org/10.1109/ACCESS.2020.2990567
+3. K. Deb, A. Pratap, S. Agarwal and T. Meyarivan, "A fast and elitist multiobjective genetic algorithm: NSGA-II," in _IEEE Transactions on Evolutionary Computation_, vol. 6, no. 2, pp. 182-197, April 2002. https://doi.org/10.1109/4235.996017
