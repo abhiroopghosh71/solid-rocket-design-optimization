@@ -9,7 +9,7 @@ The code currently may not work properly on MAC-OS. One known issue is when you 
 
 Try to follow the instructions given in https://apple.stackexchange.com/questions/254380/why-am-i-getting-an-invalid-active-developer-path-when-attempting-to-use-git-a but its not guaranteed to fix the issue.
 
-The code should run properly on Windows but it has not been extensively tested. Please contact the developer for any issues faced.
+The code should run properly on Windows, but it has not been extensively tested. Please contact Abhiroop Ghosh (ghoshab1@msu.edu) for any issues faced.
 
 <h2>Running unit tests to ensure everything is in order:</h4>
 1. Clone the repo:
