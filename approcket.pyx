@@ -80,8 +80,8 @@ NRAYS = _NRAYS
 EVOLVINGSTARSHAPE = _EVOLVINGSTARSHAPE
 NRAYDEPTHS = _NRAYDEPTHS
 
-NumTimePointsCoarse = _NumTimePointsCoarse
-NumTimePointsFine = _NumTimePointsFine
+cdef int NumTimePointsCoarse = _NumTimePointsCoarse
+cdef int NumTimePointsFine = _NumTimePointsFine
 
 DeltaTimeFine = _DeltaTimeFine
 DeltaTimeCoarse = _DeltaTimeCoarse
@@ -93,9 +93,9 @@ def evaluate_design_in_parallel(int [:, :] propellant_memview, double [:] layer_
                                 max_thrust, ray_depth_flag):
     cdef Py_ssize_t i
 
-    cpdef int c_reason_stopped
-    cpdef double c_thrust_reward
-    cpdef double c_simultaneity_reward
+    cdef int c_reason_stopped
+    cdef double c_thrust_reward
+    cdef double c_simultaneity_reward
     cdef double [::1] c_times = np.zeros(NumTimePointsCoarse, dtype=np.double)
     cdef double [::1] c_thrust_profile = np.zeros(NumTimePointsCoarse, dtype=np.double)
     cdef double [::1] c_m_pressure_profile = np.zeros(NumTimePointsCoarse, dtype=np.double)
@@ -125,7 +125,7 @@ def evaluate_design_in_parallel(int [:, :] propellant_memview, double [:] layer_
 
     cdef double c_l_throat_area_input = .001297  # Currently not used by the model
     cdef double c_l_delta_v = 0.
-    cpdef double c_max_thrust = max_thrust
+    cdef double c_max_thrust = max_thrust
 
     cdef int c_l_ray_depth_flag = ray_depth_flag
 
@@ -182,7 +182,7 @@ def evaluate_rocket_design(int [::1] propellant_memview, double [::1] layer_star
 
     cdef double c_l_throat_area_input = .001297  # Currently not used by the model
     cdef double c_l_delta_v = 0.
-    cpdef double c_max_thrust = max_thrust
+    cdef double c_max_thrust = max_thrust
 
     cdef int c_l_ray_depth_flag = ray_depth_flag
 
