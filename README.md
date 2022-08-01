@@ -117,7 +117,7 @@ More details about the solid rocket burn simulator written in C is provided in t
 ```librocket/README_ROCKET.md```. Please report issues to me, Abhiroop Ghosh, at ghoshab1@msu.edu.
 
 <h2>References:</h4>
-1. A. Ghosh, E. Goodman, K. Deb, R. Averill, A. Diaz, "A Large-scale Bi-objective Optimization of Solid Rocket Motors Using Innovization," _2020 IEEE Congress on Evolutionary Computation (CEC)_, 1–8. https://doi.org/10.1109/CEC48606.2020.9185861
+1. A. Ghosh, E. Goodman, K. Deb, R. Averill, A. Diaz, "A Large-scale Bi-objective Optimization of Solid Rocket Motors Using Innovization," 2020 IEEE Congress on Evolutionary Computation (CEC), 1–8. https://doi.org/10.1109/CEC48606.2020.9185861
 
 2. J. Blank and K. Deb, pymoo: Multi-Objective Optimization in Python, in IEEE Access, vol. 8, pp. 89497-89509, 2020, https://doi.org/10.1109/ACCESS.2020.2990567
 
