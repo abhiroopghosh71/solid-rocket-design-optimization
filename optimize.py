@@ -7,7 +7,11 @@ import time
 import warnings
 import pickle
 
-from pymoo.factory import get_sampling, get_crossover, get_mutation
+from pymoo.operators.sampling.rnd import IntegerRandomSampling
+from pymoo.operators.crossover.pntx import PointCrossover, SinglePointCrossover, TwoPointCrossover
+from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+from pymoo.operators.mutation.pm import PolynomialMutation
+from pymoo.operators.repair.rounding import RoundingRepair
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.optimize import minimize
 
@@ -126,7 +130,7 @@ def run_optimization(args):
         pass
     else:
         interactive_interface = None
-    sampling = get_sampling("int_random")
+    sampling = IntegerRandomSampling()
     problem = problemdef.get_problem('rocket')(target_thrust_profile_name=args.target_thrust,
                                                burn_timestep=args.burn_timestep,
                                                mode='const_layer_thickness', propellant_in='propellants.txt',
@@ -145,36 +149,36 @@ def run_optimization(args):
     crossover_operator, mutation_operator = None, None
     if args.star_curve:
         if args.crossover == 'two_point':
-            crossover_operator = get_crossover("real_two_point")
+            crossover_operator = TwoPointCrossover()
         elif args.crossover == 'one_point':
-            crossover_operator = get_crossover("real_one_point")
+            crossover_operator = SinglePointCrossover
         elif args.crossover == 'sbx':
-            crossover_operator = get_crossover("real_sbx")
-        elif args.crossover == 'ux':
-            crossover_operator = get_crossover("real_ux")
-        elif args.crossover == 'hux':
-            crossover_operator = get_crossover("real_hux")
-        elif args.crossover == 'exp':
-            crossover_operator = get_crossover("real_exp")
+            crossover_operator = SimulatedBinaryCrossover()
+        # elif args.crossover == 'ux':
+        #     crossover_operator = get_crossover("real_ux")
+        # elif args.crossover == 'hux':
+        #     crossover_operator = get_crossover("real_hux")
+        # elif args.crossover == 'exp':
+        #     crossover_operator = get_crossover("real_exp")
         else:
             warnings.warn("Crossover operator not defined or invalid choice")
-        mutation_operator = get_mutation("real_pm", eta=args.mutation_eta, prob=args.mutation_prob)
+        mutation_operator = PolynomialMutation(prob=args.mutation_prob, eta=args.mutation_eta)
     else:
         if args.crossover == 'two_point':
-            crossover_operator = get_crossover("int_two_point")
+            crossover_operator = TwoPointCrossover(repair=RoundingRepair())
         elif args.crossover == 'one_point':
-            crossover_operator = get_crossover("int_one_point")
+            crossover_operator = SinglePointCrossover(repair=RoundingRepair())
         elif args.crossover == 'sbx':
-            crossover_operator = get_crossover("int_sbx")
-        elif args.crossover == 'ux':
-            crossover_operator = get_crossover("int_ux")
-        elif args.crossover == 'hux':
-            crossover_operator = get_crossover("int_hux")
-        elif args.crossover == 'exp':
-            crossover_operator = get_crossover("int_exp")
+            crossover_operator = SimulatedBinaryCrossover(repair=RoundingRepair())
+        # elif args.crossover == 'ux':
+        #     crossover_operator = get_crossover("int_ux")
+        # elif args.crossover == 'hux':
+        #     crossover_operator = get_crossover("int_hux")
+        # elif args.crossover == 'exp':
+        #     crossover_operator = get_crossover("int_exp")
         else:
             warnings.warn("Crossover operator not defined or invalid choice")
-        mutation_operator = get_mutation("int_pm", eta=args.mutation_eta, prob=args.mutation_prob)
+        mutation_operator = PolynomialMutation(prob=args.mutation_prob, eta=args.mutation_eta, repair=RoundingRepair())
 
     # Write optimization parameters to file
     run_details_file = open(os.path.join(env_vars['output_folder'], 'run_details.txt'), 'w')

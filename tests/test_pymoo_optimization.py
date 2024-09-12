@@ -20,7 +20,7 @@ class TestOptimization(unittest.TestCase):
     def run_optimization(self, parallel=False):
         """Tests the optimization output for a specific set of input parameters."""
 
-        dir_path = os.path.dirname(os.path.realpath(__file__))
+        dir_path = os.getcwd()
         # FIXME: Gives different results when optimization run twice or in parallel if thrust_profile_fine used for
         #  fitness calculation
         # Test the results returned by Pymoo (X, F, pop, etc)

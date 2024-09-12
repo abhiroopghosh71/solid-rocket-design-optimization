@@ -20,10 +20,8 @@ class TestRocketEvaluator(unittest.TestCase):
               9, 6, 4, 7, 0, 5, 1, 1, 1, 2, 0, 0, 1, 7, 6, 7, 4, 3, 5, 4, 10, 4, 3, 9, 6, 10, 3, 2, 1, 9, 0, 0, 1, 7, 6,
               7, 4, 9, 0, 9, 5, 0, 8, 6, 4, 2, 2, 6, 8, 5, 0, 0, 1, 7, 6, 7, 4, 5, 0, 2, 7, 5, 2, 0, 10, 6, 2, 10, 4, 3,
               0, 0, 7, 8, 10, 8, 1, 2, 0, 10, 4, 3, 6, 3, 1, 4, 1, 0, 0, 0, 0, 0, 2, 1, 3, 3, 2, 2, 14, 9, 3, 3, 2, 2,
-              2, 1, 2, 6, 3, 2, 2, 2, 0, 3, 6, 9]], dtype=np.int32)
+              2, 1, 2, 6, 3, 2, 2, 2, 0, 3, 6, 9]], dtype=int)
         for i in range(2):
-            os.chdir('..')
-
             simulator_output_arr = rocket_single_eval.evaluate(x_test, target_thrust_profile=None, ray_depth_flag=0)
             # KLUGE
             simulator_output = simulator_output_arr[0]
