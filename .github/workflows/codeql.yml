@@ -19,9 +19,6 @@ on:
   schedule:
     - cron: '29 16 * * 6'
 
-env:
-  PYTHON_VERSION: "3.12"
-
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
@@ -62,10 +59,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     
-    - name: Set up Python $PYTHON_VERSION
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: $PYTHON_VERSION
+        python-version: "3.12"
     
     - name: Install dependencies
       run: |
