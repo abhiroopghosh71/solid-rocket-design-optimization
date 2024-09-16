@@ -19,6 +19,9 @@ on:
   schedule:
     - cron: '29 16 * * 6'
 
+env:
+  PYTHON_VERSION: "3.12"
+
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
@@ -47,7 +50,6 @@ jobs:
           build-mode: manual
         - language: python
           build-mode: none
-        python-version: ["3.12"]
         # CodeQL supports the following values keywords for 'language': 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift'
         # Use `c-cpp` to analyze code written in C, C++ or both
         # Use 'java-kotlin' to analyze code written in Java, Kotlin or both
@@ -60,10 +62,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python $PYTHON_VERSION
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: $PYTHON_VERSION
     
     - name: Install dependencies
       run: |
