@@ -14,7 +14,7 @@ from problems.rocket_propellant_design import rocket_single_eval
 from problems.rocket_propellant_design.rocket_util import parse_vector_to_model_input
 
 
-class TestOptimization(unittest.TestCase):
+class TestOptimization():
     """Tests the pymoo optimization framework for the rocket design problem."""
 
     def run_optimization(self, parallel=False):
