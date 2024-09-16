@@ -47,7 +47,7 @@ jobs:
           build-mode: manual
         - language: python
           build-mode: none
-        - python-version: "3.12"
+        python-version: ["3.12"]
         # CodeQL supports the following values keywords for 'language': 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift'
         # Use `c-cpp` to analyze code written in C, C++ or both
         # Use 'java-kotlin' to analyze code written in Java, Kotlin or both
@@ -68,6 +68,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+        make
     
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
@@ -81,18 +82,7 @@ jobs:
 
         # For more details on CodeQL's query packs, refer to: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
         # queries: security-extended,security-and-quality
-
-    # If the analyze step fails for one of the languages you are analyzing with
-    # "We were unable to automatically build your code", modify the matrix above
-    # to set the build mode to "manual" for that language. Then modify this step
-    # to build your code.
-    # ℹ️ Command-line programs to run using the OS shell.
-    # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
-    - if: matrix.build-mode == 'manual'
-      shell: bash
-      run: |
-        make
-
+    
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       with:
