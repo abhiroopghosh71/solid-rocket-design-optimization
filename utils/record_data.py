@@ -6,14 +6,14 @@ from shutil import copyfile
 import h5py
 import numpy as np
 from pymoo.core.repair import NoRepair
-from pymoo.util.display import MultiObjectiveDisplay
+from pymoo.util.display.display import Display
 
 import approcket as apr
 # from optimize import env_vars
 from problems import calc_obj
 
 
-class OptimizationDisplay(MultiObjectiveDisplay):
+class OptimizationDisplay(Display):
 
     def _do(self, problem, evaluator, algorithm):
         super()._do(problem, evaluator, algorithm)

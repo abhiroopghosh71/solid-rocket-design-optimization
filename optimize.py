@@ -7,18 +7,17 @@ import time
 import warnings
 import pickle
 
-from pymoo.factory import get_sampling, get_crossover, get_mutation
+from pymoo.operators.sampling.rnd import IntegerRandomSampling
+from pymoo.operators.crossover.pntx import PointCrossover, SinglePointCrossover, TwoPointCrossover
+from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+from pymoo.operators.mutation.pm import PolynomialMutation
+from pymoo.operators.repair.rounding import RoundingRepair
 from pymoo.algorithms.moo.nsga2 import NSGA2
 from pymoo.optimize import minimize
 
 import approcket as apr
 from problems import problemdef
-# from problems.rocket_propellant_design.rocket_repair_online import ParameterlessInequalityRepair
-# from utils.record_data import OptimizationDisplay, record_state
 import utils.record_data as rec
-
-# from utils.math_operations import calc_mean_std_without_outliers
-# from problems.rocket_propellant_design.rocket_repair_interactive import InteractiveRepair
 
 rocket_module_path = os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                                'problems',
@@ -126,7 +125,7 @@ def run_optimization(args):
         pass
     else:
         interactive_interface = None
-    sampling = get_sampling("int_random")
+    sampling = IntegerRandomSampling()
     problem = problemdef.get_problem('rocket')(target_thrust_profile_name=args.target_thrust,
                                                burn_timestep=args.burn_timestep,
                                                mode='const_layer_thickness', propellant_in='propellants.txt',
@@ -143,38 +142,29 @@ def run_optimization(args):
                                                probability_update_freq=args.probability_update_freq)
 
     crossover_operator, mutation_operator = None, None
+
     if args.star_curve:
         if args.crossover == 'two_point':
-            crossover_operator = get_crossover("real_two_point")
+            crossover_operator = TwoPointCrossover()
         elif args.crossover == 'one_point':
-            crossover_operator = get_crossover("real_one_point")
+            crossover_operator = SinglePointCrossover
         elif args.crossover == 'sbx':
-            crossover_operator = get_crossover("real_sbx")
-        elif args.crossover == 'ux':
-            crossover_operator = get_crossover("real_ux")
-        elif args.crossover == 'hux':
-            crossover_operator = get_crossover("real_hux")
-        elif args.crossover == 'exp':
-            crossover_operator = get_crossover("real_exp")
+            crossover_operator = SimulatedBinaryCrossover()
         else:
             warnings.warn("Crossover operator not defined or invalid choice")
-        mutation_operator = get_mutation("real_pm", eta=args.mutation_eta, prob=args.mutation_prob)
+        
+        mutation_operator = PolynomialMutation(prob=args.mutation_prob, eta=args.mutation_eta)
     else:
         if args.crossover == 'two_point':
-            crossover_operator = get_crossover("int_two_point")
+            crossover_operator = TwoPointCrossover(repair=RoundingRepair())
         elif args.crossover == 'one_point':
-            crossover_operator = get_crossover("int_one_point")
+            crossover_operator = SinglePointCrossover(repair=RoundingRepair())
         elif args.crossover == 'sbx':
-            crossover_operator = get_crossover("int_sbx")
-        elif args.crossover == 'ux':
-            crossover_operator = get_crossover("int_ux")
-        elif args.crossover == 'hux':
-            crossover_operator = get_crossover("int_hux")
-        elif args.crossover == 'exp':
-            crossover_operator = get_crossover("int_exp")
+            crossover_operator = SimulatedBinaryCrossover(repair=RoundingRepair())
         else:
             warnings.warn("Crossover operator not defined or invalid choice")
-        mutation_operator = get_mutation("int_pm", eta=args.mutation_eta, prob=args.mutation_prob)
+        
+        mutation_operator = PolynomialMutation(prob=args.mutation_prob, eta=args.mutation_eta, repair=RoundingRepair())
 
     # Write optimization parameters to file
     run_details_file = open(os.path.join(env_vars['output_folder'], 'run_details.txt'), 'w')
@@ -214,31 +204,17 @@ def run_optimization(args):
         data_record_function = rec.record_state
     method = NSGA2(pop_size=args.popsize,
                    sampling=sampling,
-                   # crossover=get_crossover("int_sbx", prob=0.9, eta=3.0),
-                   # crossover=get_crossover("int_two_point"),
-                   # crossover=crossover_operator,
-                   # mutation=get_mutation("int_pm", eta=3.0, prob=0.05),
+                   crossover=crossover_operator,
                    mutation=mutation_operator,
                    elimate_duplicates=True,
                    display=rec.OptimizationDisplay(),
                    callback=data_record_function
                    )
-    # if args.repair:
-    #     if method.pop_size < 50:
-    #         warnings.warn("Population size might be too low to learn innovization rules")
-    #         logging.warning("Population size might be too low to learn innovization rules")
-    #     # truss_optimizer.repair = MonotonicityRepairV1()
-    #     if args.shape_only:
-    #         method.repair = ParameterlessInequalityRepair(propellant_repair=False)
-    #     elif args.no_group:
-    #         method.repair = ParameterlessInequalityRepair(grouped_propellants=False)
-    #     else:
-    #         method.repair = ParameterlessInequalityRepair()
 
     args_file = open(os.path.join(env_vars['output_folder'], 'args.txt'), 'w')
     args_file.write(str(args))
     args_file.close()
-    # snapshot = tracemalloc.take_snapshot()
+    
     result = minimize(problem,
                       method,
                       verbose=True,
@@ -306,7 +282,6 @@ if __name__ == '__main__':
     # Sample arg string:
     # arg_str = f'--ngen 60 --popsize 50 --report-freq 20 --target-thrust baseline --seed 0 --mutation-eta 3 ' \
     #           f'--mutation-prob 0.05 --crossover two_point --save nsga2-test-{time.strftime("%Y%m%d-%H%M%S")}'
-    # cmd_args = parse_args(arg_str.split(' '))
     t0 = time.time()
     cmd_args = parse_args(sys.argv[1:])
     res = run_optimization(cmd_args)

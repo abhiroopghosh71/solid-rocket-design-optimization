@@ -20,7 +20,7 @@ from problems.rocket_propellant_design.rocket_util import RocketData
 class RocketProblem(Problem):
 
     def __init__(self, n_obj=2, n_constr=0, target_thrust_profile_name='baseline',
-                 min_pressure=1.379e6, type_var=np.int, propellant_in='propellants.txt', resolution=1e-9,
+                 min_pressure=1.379e6, type_var=int, propellant_in='propellants.txt', resolution=1e-9,
                  calc_rewards=False, mode='const_layer_thickness', residual_metric='sum', use_parallelization=False,
                  ncores=mp.cpu_count() // 3,
                  file_io=False, obj_metric=('squared_thrust_error', 'mean+std'),
@@ -258,7 +258,7 @@ class RocketProblem(Problem):
             x, repair_indx = self.interactive_interface.do(self, np.copy(x), **kwargs)
             if len(repair_indx) > 0:
                 out['repaired_by'][repair_indx] = 1
-        if hasattr(kwargs['algorithm'], 'repair') and kwargs['algorithm'].repair is not None and type(kwargs['algorithm'].repair) != NoRepair:
+        if 'algorithm' in kwargs and hasattr(kwargs['algorithm'], 'repair') and kwargs['algorithm'].repair is not None and type(kwargs['algorithm'].repair) != NoRepair:
             print("Repair")
             x = kwargs['algorithm'].repair.do(self, np.copy(x), **kwargs)
 
